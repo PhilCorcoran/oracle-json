@@ -1,7 +1,7 @@
 oracle-json
 ===========
 
-nodejs module to call oracle stored procedures using json input and output params
+nodejs module to call oracle stored procedures using CLOBs for json input and output params
 
 
 # Install
