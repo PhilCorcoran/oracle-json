@@ -1,0 +1,9 @@
+{ 
+	"database":{
+	"hostname": "10.40.105.95",
+	"user": "dbo_d",
+	"password": "dbodwbdev4",
+	"database": "vmwbdev4"
+	},
+	"port":"3336"
+}
