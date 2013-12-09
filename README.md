@@ -12,7 +12,6 @@ Exits when the database connection is lost ( assumes it will be restarted automa
   npm install oracle-json
 ```
 
-Or just require the `cache-ex.js` file to get the superclass
 
 # Examples:
 
