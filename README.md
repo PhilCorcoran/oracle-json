@@ -20,7 +20,7 @@ The examples below assume the `express` module is also being used.
 ## Initialize (INIT):
 
 ```js
-var oracle_json=require('../index.js');
+var oracle_json=require('oracle-json');
 var settings = require('./settings.json');
 oracle_json.connect(settings.database,start_app);
 ```
@@ -28,11 +28,9 @@ oracle_json.connect(settings.database,start_app);
 ### Called a Stored Procedure which returns JSON
 
 ```js
-	app.get('/price', function(req, res) {
 		oracle_json.execute("pkg_any.GetPrice",req.query,res,function (data){
 			res.send(data);
 		});
-	});
 ```
 
 ## Call a Stored Procedure which returns nothing
