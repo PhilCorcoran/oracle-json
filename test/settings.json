@@ -1,9 +1,9 @@
 { 
 	"database":{
-	"hostname": "10.40.105.95",
-	"user": "dbo_d",
-	"password": "dbodwbdev4",
-	"database": "vmwbdev4"
+	"hostname": "any",
+	"user": "db",
+	"password": "passme",
+	"database": "some_oracle"
 	},
 	"port":"3336"
 }
