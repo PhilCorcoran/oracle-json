@@ -1,12 +1,13 @@
 var connectable=true;
+var returnParam={price:299};
 function connection(){
 	this.connected=true;
 	this.execute=function(procedure_name,params,nextFunction){
 		var results=undefined;
-		if(procedure_name.indexOf('test_bad_procedure')>-1){
+		if(procedure_name.indexOf("bad_procedure")>-1){
 			nextFunction({error:"Invalid SP Name"}, null);
 		}else{
-			nextFunction(null, {returnParam:{price:299}});	
+			nextFunction(null, {returnParam:returnParam});	
 		}
 	};
 	this.isConnected=function(){

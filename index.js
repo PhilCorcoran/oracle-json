@@ -4,85 +4,139 @@
         execute_only expects no result
         Some procedures accept a JSON input parameter while others take no parameter
 */
-var oracle=require('oracle');
-var connection;
-function connect(dbsettings,nextFunction) {
-        oracle.connect(dbsettings, function(err, ora_connection) {
-                if(err){
-                        console.log("Error: Could not connect to Oracle. Exiting"+err);
-                        process.exit(1);
-                }else{
-                        connection=ora_connection;
-                        nextFunction();
-                }
-        });
+// var oracle=require('oracle');
+var oracle=require('./test/mock_oracle');
+var connection=null;
+var dbSettings=null;
+function init(dbsettings){
+        dbSettings=dbsettings;
 }
-function validate(procedure_name,res){
-        if(procedure_name===undefined){
-                throw Error("Oracle Procedure name is not defined");
+
+function isConnected(){
+        if(connection===null){
+                return false;
         }
-        if (connection ===undefined || !connection.isConnected()) {
-                res.status(503).send("Database Error");
-                console.log("Error: Oracle connection is dead. Exiting");
-                process.exit(1);
-        }        
+        if(!connection.isConnected()){
+                return false;
+        }
+        return true;
 }
-/*  Execute a procedure which returns a JSON clob */
-function execute(procedure_name,params,res,nextFunc){
-        var nextFunction=nextFunc;
-        validate(procedure_name,res);
-        if(params!==undefined){
-                var callString='call '+procedure_name+'(:1,:2)';
-                var paramString=JSON.stringify(params);
+/*  Execute a procedure which returns a JSON clob 
+dbRequest={
+        procedure,
+        params,
+        response,
+        successFunc
+} 
+*/
+function execute(dbRequest){
+        if(dbRequest.params!==undefined){
+                var callString='call '+dbRequest.procedure+'(:1,:2)';
+                var paramString=JSON.stringify(dbRequest.params);
                 console.log("Oracle: "+callString +" params:"+paramString);
                 connection.execute(callString, [paramString,new oracle.OutParam(oracle.OCCICLOB)],handle_result_err);
         }else{
-                var callString='call '+procedure_name+'(:1)';
+                var callString='call '+dbRequest.procedure+'(:1)';
                 console.log("Oracle: "+callString);
                 connection.execute(callString, [new oracle.OutParam(oracle.OCCICLOB)],handle_result_err);
         }
         function handle_result_err(err,results){
                 if (err) {
                         console.log("Oracle Error: "+err);
-                        res.status(503).send("Database Error");
+                        close();
+                        dbRequest.response.status(503).send("Database Error");
                 } else if(!results || ! results.returnParam) {
                         console.log("Oracle Error: no results from database");
-                        res.status(503).send("Database Error");
+                        dbRequest.response.status(503).send("Database Error");
                 }else {
-                        nextFunction(results.returnParam);
+                        dbRequest.successFunc(results.returnParam);
                 }
         };
 }
-/* Execute a procedure which returns no results */
-function execute_only(procedure_name,params,res,nextFunc){
-        var nextFunction=nextFunc;
-        validate(procedure_name,res);
-        if(params===undefined){
-                connection.execute("call"+procedure_name+"()", [],handle_result_err);
+function validate(dbRequest){
+        if(dbSettings===null){
+                console.log("Error. init() was never called");
+                dbRequest.response.status(503).send("Database Error");
+        }
+        if(dbRequest.procedure===undefined){
+                console.log("Error. procedure is not defined");
+                dbRequest.response.status(503).send("Database Error");
+        }
+}
+function connectExecute(dbRequest){
+        var dbRequest=dbRequest;
+        validate(dbRequest);
+        if(!isConnected()){
+                oracle.connect(dbSettings,function(err, ora_connection) {
+                        if(err){
+                                console.log("Error: Could not connect to Oracle."+err);
+                                dbRequest.response.status(503).send("Database Error");
+                        }else{
+                                connection=ora_connection;
+                                execute(dbRequest);
+                        }
+                });
         }else{
-                var callString='call '+procedure_name+'(:1)';
-                var paramString=JSON.stringify(params);
+                execute(dbRequest);
+        }
+}
+function connectExecuteOnly(dbRequest){
+        var dbRequest=dbRequest;
+        validate(dbRequest);
+        if(dbSettings===null){
+                console.log("Error. init() was never called");
+                dbRequest.response.status(503).send("Database Error");
+        }
+        if(dbRequest.procedure===undefined){
+                console.log("Error. procedure is not defined");
+                dbRequest.response.status(503).send("Database Error");
+        }
+        if(!isConnected()){
+                console.log("Trying to connect to Oracle");
+                oracle.connect(dbSettings,function(err, ora_connection) {
+                        if(err){
+                                console.log("Error: Could not connect to Oracle."+err);
+                                dbRequest.response.status(503).send("Database Error");
+                        }else{
+                                connection=ora_connection;
+                                execute_only(dbRequest);
+                        }
+                });
+        }else{
+                execute_only(dbRequest);
+        }
+}
+/* Execute a procedure which returns no results */
+function execute_only(dbRequest){
+        if(dbRequest.params===undefined){
+                connection.execute("call"+dbRequest.procedure+"()", [],handle_result_err);
+        }else{
+                var callString='call '+dbRequest.procedure+'(:1)';
+                var paramString=JSON.stringify(dbRequest.params);
                 console.log("Oracle:"+callString +" params:"+paramString);
-                connection.execute(callString, [JSON.stringify(params)],handle_result_err);
+                connection.execute(callString, [paramString],handle_result_err);
         }
         function handle_result_err(err,results){
                 if (err) {
                         console.log("Oracle Error: "+err);
-                        res.status(503).send("Database Error");
+                        close();
+                        dbRequest.response.status(503).send("Database Error");
                 }else {
-                        nextFunction();
+                        dbRequest.successFunc();
                 }
         };
 }
 function close(){
-        if(connection !==undefined){
+        if(connection !==null){
                 connection.close();
+                connection=null;
         }else{
-                throw Error("Connection was already closed");
+                console.log("Error: close() called but connection was already null");
         }
 }
-exports.connect=connect;
+exports.connectExecute=connectExecute;
+exports.connectExecuteOnly=connectExecuteOnly;
+exports.init=init;
 exports.close=close;
-exports.execute=execute;
-exports.execute_only=execute_only;
+
 
