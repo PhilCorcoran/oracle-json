@@ -4,8 +4,7 @@
         execute_only expects no result
         Some procedures accept a JSON input parameter while others take no parameter
 */
-// var oracle=require('oracle');
-var oracle=require('./test/mock_oracle');
+var oracle=require('oracle');
 var connection=null;
 var dbSettings=null;
 function init(dbsettings){
