@@ -8,8 +8,10 @@ var oracle=require('oracle');
 var connection=null;
 var dbSettings=null;
 var lastOracleError="";
-function init(dbsettings){
-        dbSettings=dbsettings;
+var aSecret="someSecret";
+function init(settings){
+        dbSettings=settings.database;
+        aSecret=settings.secret;
 }
 function connect(successFunc,errorFunc){
         lastOracleError="";
@@ -25,7 +27,7 @@ function connect(successFunc,errorFunc){
         oracle.connect(dbSettings,function(err, ora_connection) {
                 if(err){
                         console.log("Error: Could not connect to Oracle."+err);
-                        lastOracleError=err;
+                        lastOracleError=(new Date()).valueOf()+":"+err;
                         close();
                         errorFunc();
                 }else{
@@ -61,12 +63,12 @@ function isConnected(){
                 function handle_result_err(err,results){
                         if (err) {
                                 console.log("Oracle Error(1): "+err);
-                                lastOracleError=err;
+                                lastOracleError=(new Date()).valueOf()+":"+err;
                                 close();
                                 dbRequest.response.status(503).send("Database Error");
                         } else if(!results || ! results.returnParam) {
                                 console.log("Oracle Error(2): no results from database");
-                                lastOracleError="Oracle Error(2): no results from database";
+                                lastOracleError=(new Date()).valueOf()+":Oracle Error(2): no results from database";
                                 dbRequest.response.status(503).send("Database Error");
                         }else {
                                 dbRequest.successFunc(results.returnParam);
@@ -92,7 +94,7 @@ function isConnected(){
                         oracle.connect(dbSettings,function(err, ora_connection) {
                                 if(err){
                                         console.log("Error: Could not connect to Oracle."+err);
-                                        lastOracleError=err;
+                                        lastOracleError=(new Date()).valueOf()+":"+err;
                                         close();
                                         dbRequest.response.status(503).send("Database Error");
                                 }else{
@@ -121,7 +123,7 @@ function isConnected(){
                         oracle.connect(dbSettings,function(err, ora_connection) {
                                 if(err){
                                         console.log("Oracle Error(3): Could not connect to Oracle."+err);
-                                        lastOracleError=err;
+                                        lastOracleError=(new Date()).valueOf()+":"+err;
                                         close();
                                         dbRequest.response.status(503).send("Database Error");
                                 }else{
@@ -146,7 +148,7 @@ function isConnected(){
                 function handle_result_err(err,results){
                         if (err) {
                                 console.log("Oracle Error(4): "+err);
-                                lastOracleError=err;
+                                lastOracleError=(new Date()).valueOf()+":"+err;
                                 close();
                                 dbRequest.response.status(503).send("Database Error");
                         }else {
@@ -165,11 +167,31 @@ function isConnected(){
         function lastError(){
                 return "from Oracle:"+lastOracleError;
         }
+        function admin(req,res,next){
+                switch(req.path){
+                        case "/error":
+                        if(req.method!="POST"){
+                                res.status(401).send("Not available");
+                                break;
+                        }
+                        if(!req.body.secret || aSecret !==req.body.secret){
+                                res.status(401).send("Unauthorized");
+                                break;
+                        }else{
+                                res.send({error:lastError()});
+                        }
+                        break;
+                        default:
+                        res.send('no matching url');
+                        break;
+                }
+        }
         exports.connectExecute=connectExecute;
         exports.connectExecuteOnly=connectExecuteOnly;
         exports.init=init;
         exports.close=close;
         exports.connect=connect;
         exports.lastError=lastError;
+        exports.admin=admin;
 
 
