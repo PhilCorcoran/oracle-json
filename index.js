@@ -7,10 +7,12 @@ Some procedures accept a JSON input parameter while others take no parameter
 var oracle=require('oracle');
 var connection=null;
 var dbSettings=null;
+var lastOracleError="";
 function init(dbsettings){
         dbSettings=dbsettings;
 }
 function connect(successFunc,errorFunc){
+        lastOracleError="";
         if(dbSettings===null){
                 console.log("init() was never called "); 
                 errorFunc();              
@@ -23,6 +25,7 @@ function connect(successFunc,errorFunc){
         oracle.connect(dbSettings,function(err, ora_connection) {
                 if(err){
                         console.log("Error: Could not connect to Oracle."+err);
+                        lastOracleError=err;
                         close();
                         errorFunc();
                 }else{
@@ -58,10 +61,12 @@ function isConnected(){
                 function handle_result_err(err,results){
                         if (err) {
                                 console.log("Oracle Error(1): "+err);
+                                lastOracleError=err;
                                 close();
                                 dbRequest.response.status(503).send("Database Error");
                         } else if(!results || ! results.returnParam) {
                                 console.log("Oracle Error(2): no results from database");
+                                lastOracleError="Oracle Error(2): no results from database";
                                 dbRequest.response.status(503).send("Database Error");
                         }else {
                                 dbRequest.successFunc(results.returnParam);
@@ -79,6 +84,7 @@ function isConnected(){
                 }
         }
         function connectExecute(dbRequest){
+                lastOracleError="";
                 var dbRequest=dbRequest;
                 validate(dbRequest);
                 if(!isConnected()){
@@ -86,6 +92,7 @@ function isConnected(){
                         oracle.connect(dbSettings,function(err, ora_connection) {
                                 if(err){
                                         console.log("Error: Could not connect to Oracle."+err);
+                                        lastOracleError=err;
                                         close();
                                         dbRequest.response.status(503).send("Database Error");
                                 }else{
@@ -98,6 +105,7 @@ function isConnected(){
                 }
         }
         function connectExecuteOnly(dbRequest){
+                lastOracleError="";
                 var dbRequest=dbRequest;
                 validate(dbRequest);
                 if(dbSettings===null){
@@ -113,6 +121,7 @@ function isConnected(){
                         oracle.connect(dbSettings,function(err, ora_connection) {
                                 if(err){
                                         console.log("Oracle Error(3): Could not connect to Oracle."+err);
+                                        lastOracleError=err;
                                         close();
                                         dbRequest.response.status(503).send("Database Error");
                                 }else{
@@ -137,6 +146,7 @@ function isConnected(){
                 function handle_result_err(err,results){
                         if (err) {
                                 console.log("Oracle Error(4): "+err);
+                                lastOracleError=err;
                                 close();
                                 dbRequest.response.status(503).send("Database Error");
                         }else {
@@ -152,10 +162,14 @@ function isConnected(){
                         console.log("Error: close() called but connection was already null");
                 }
         }
+        function lastError(){
+                return "from Oracle:"+lastOracleError;
+        }
         exports.connectExecute=connectExecute;
         exports.connectExecuteOnly=connectExecuteOnly;
         exports.init=init;
         exports.close=close;
         exports.connect=connect;
+        exports.lastError=lastError;
 
 
