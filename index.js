@@ -133,10 +133,10 @@ function init(settings){
         }
         function close(connection){
                 console.log("Closing Oracle connection");
-                if(connection !==null){
+                if(connection !==null && connection !==undefined){
                         connection.close();
                 }else{
-                        console.log("Error: close() called but connection was null");
+                        console.log("Error: close() called but connection was null or undefined");
                 }
         }
         function lastError(){
