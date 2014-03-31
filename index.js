@@ -151,7 +151,10 @@ function init(settings){
                         res.send({error:lastError()});
                         break;
                         case "/settings":
-                        res.send({database:dbSettings});
+                        var settings={};
+                        settings.tns=dbSettings.tns;
+                        settings.user=dbSettings.user;
+                        res.send({database:settings});
                         break;
                         default:
                         res.send('no matching url');

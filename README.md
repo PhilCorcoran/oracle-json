@@ -61,6 +61,7 @@ simulates a lost connection. Node process will exit
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v0.3.3|2014-31-03|Remove password in case Admin leaks out of development|
 |v0.3.2|2014-31-03|Admin interface restricted to development envirionment|
 |v0.2.1|2013-12-18|Make one attempt to reconnect to Oracle per request|
 |v0.1.1|2013-12-05|Initial Version|
