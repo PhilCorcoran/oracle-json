@@ -143,18 +143,15 @@ function init(settings){
                 return "from Oracle:"+lastOracleError;
         }
         function admin(req,res,next){
+                if('development'!==process.env.NODE_ENV){
+                        res.status(401).send("Not available");
+                }
                 switch(req.path){
                         case "/error":
-                        if(req.method!="POST"){
-                                res.status(401).send("Not available");
-                                break;
-                        }
-                        if(!req.body.secret || aSecret !==req.body.secret){
-                                res.status(401).send("Unauthorized");
-                                break;
-                        }else{
-                                res.send({error:lastError()});
-                        }
+                        res.send({error:lastError()});
+                        break;
+                        case "/settings":
+                        res.send({database:dbSettings});
                         break;
                         default:
                         res.send('no matching url');
