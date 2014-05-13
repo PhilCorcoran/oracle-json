@@ -1,18 +1,32 @@
 {
   "name": "oracle-json",
   "description": "call oracle stored procedures using json input and output params",
-  "version": "0.3.3",
-  "main": "./index.js",
+  "version": "0.4.0",
+  "main": "./lib",
   "homepage": "https://github.com/PhilCorcoran/oracle-json",
   "repository": {
     "type": "git",
     "url": "git://github.com/PhilCorcoran/oracle-json.git"
   },
+  "bugs": {
+    "url": "https://github.com/PhilCorcoran/oracle-json/issues"
+  },
+  "author": {
+    "name": "Philip Corcoran",
+    "email": "philfcorcoran@gmail.com"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
   "dependencies": {
     "oracle": "0.3.4"
   },
   "devDependencies": {},
   "engines": {
     "node": "~0.10"
-  }
+  },
+  "readmeFilename": "README.md"
 }

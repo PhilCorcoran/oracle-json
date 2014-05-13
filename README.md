@@ -11,58 +11,40 @@ Requires the node `oracle` driver module
 ```bash
   npm install oracle-json
 ```
-
+# Options:
+''keepOpen'' maintains the connection to oracle between execution calls
+''database'' connection parameters for the ''oracle'' node module.
 
 # Examples:
 
 The examples below assume the `express` module is also being used.
 
-## Initialize (INIT):
+## Initialization
 
 ```js
-var oracle_json=require('oracle-json');
-var settings = require('./settings.json');
-oracle_json.connect(settings.database,start_app);
+var oj=require('oracle-json')(options);
 ```
 
 ### Called a Stored Procedure which returns JSON
 
 ```js
-		oracle_json.execute("pkg_any.GetPrice",req.query,res,function (data){
-			res.send(data);
-		});
+var priceCall={procedure:"pkg_test.getPrice",query:true,output:true} ;
+app.get('/price',oj.execute(priceCall));
+
 ```
 
-## Call a Stored Procedure which returns nothing
-```js
-		oracle_json.execute_only("test_bad_procedure",req.query,res,function (data){
-			res.send(data);
-		});
-```
 
 #Test
-Install the required node modules and run `test.js` in the `test` directory
+Install the required node modules and run `test.js` in the `test` directory. Used for testing with a mock oracle driver
 ```bash
 npm install
 node test.js
 ```
 
-Browse to the following urls
-
-`http://localhost:3336/price?product=22&catalog=music`
-
-`http://localhost:3336/badprocedure`
-
-simulates a bad procedure call or an Oracle error running the procedure
-
-`http://localhost:3336/connectionlost`
-simulates a lost connection. Node process will exit
-```
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
-|v0.3.3|2014-31-03|Remove password in case Admin leaks out of development|
-|v0.3.2|2014-31-03|Admin interface restricted to development envirionment|
+|v0.4.0|2014-05-13|Keep the connection open if configured|
 |v0.2.1|2013-12-18|Make one attempt to reconnect to Oracle per request|
 |v0.1.1|2013-12-05|Initial Version|
 
