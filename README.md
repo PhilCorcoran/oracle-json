@@ -12,9 +12,12 @@ Requires the node `oracle` driver module
   npm install oracle-json
 ```
 # Options:
-''keepOpen'' maintains the connection to oracle between execution calls
-''database'' connection parameters for the ''oracle'' node module.
-
+`keepOpen` maintains the connection to oracle between execution calls  
+`database` connection parameters for the ''oracle'' node module.  
+`noRespond` do not automatically respond to the client.  
+`query` use  req.query as input parameters.  
+`body` use req.body as input parameters.  
+`inputs` specifiy the input parameters in this object  
 # Examples:
 
 The examples below assume the `express` module is also being used.
@@ -46,6 +49,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v0.4.1|2014-05-16|Configure whether to respond to the client|
 |v0.4.0|2014-05-13|Keep the connection open if configured|
 |v0.2.1|2013-12-18|Make one attempt to reconnect to Oracle per request|
 |v0.1.1|2013-12-05|Initial Version|
