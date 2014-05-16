@@ -23,6 +23,8 @@ The examples below assume the `express` module is also being used.
 
 ```js
 var oj=require('oracle-json')(options);
+app.use(oj.connect());
+
 ```
 
 ### Called a Stored Procedure which returns JSON
