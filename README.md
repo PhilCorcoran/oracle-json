@@ -14,6 +14,7 @@ Requires the node `oracle` driver module
 # Options:
 `keepOpen` maintains the connection to oracle between execution calls  
 `database` connection parameters for the ''oracle'' node module.  
+The following options are used on the call to execute a procedure  
 `noRespond` do not automatically respond to the client.  
 `query` use  req.query as input parameters.  
 `body` use req.body as input parameters.  
