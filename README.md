@@ -18,6 +18,7 @@ The following options are used on the call to execute a procedure
 `noRespond` do not automatically respond to the client.  
 `query` use  req.query as input parameters.  
 `body` use req.body as input parameters.  
+`params` use req.params as input parameters.  
 `inputs` specifiy the input parameters in this object  
 # Examples:
 
@@ -50,6 +51,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v0.4.2|2014-06-18|Option to use req.params as input|
 |v0.4.1|2014-05-16|Configure whether to respond to the client|
 |v0.4.0|2014-05-13|Keep the connection open if configured|
 |v0.2.1|2013-12-18|Make one attempt to reconnect to Oracle per request|
@@ -59,7 +61,7 @@ node test.js
 
 (The MIT License)
 
-Copyright (c) 2013 PC 
+Copyright (c) 2014 PC 
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
