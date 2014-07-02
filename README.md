@@ -51,6 +51,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v0.5.1|2014-07-02|Check TNS settings not used|
 |v0.5.0|2014-07-02|Use oracle.connectSync|
 |v0.4.2|2014-06-18|Option to use req.params as input|
 |v0.4.1|2014-05-16|Configure whether to respond to the client|
