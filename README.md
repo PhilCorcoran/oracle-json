@@ -51,6 +51,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v0.5.4|2014-07-03|Content Type set sooner|
 |v0.5.3|2014-07-03|Simple monitoring url|
 |v0.5.2|2014-07-03|Wait for executions to finish|
 |v0.5.1|2014-07-02|Check TNS settings not used|
