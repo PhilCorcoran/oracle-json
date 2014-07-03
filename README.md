@@ -51,9 +51,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
-|v0.5.4|2014-07-03|Content Type set sooner|
-|v0.5.3|2014-07-03|Simple monitoring url|
-|v0.5.2|2014-07-03|Wait for executions to finish|
+|v0.5.5|2014-07-03|Reverted to oracle0.3.4|
 |v0.5.1|2014-07-02|Check TNS settings not used|
 |v0.5.0|2014-07-02|Use oracle.connectSync|
 |v0.4.2|2014-06-18|Option to use req.params as input|
