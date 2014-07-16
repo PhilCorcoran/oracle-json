@@ -16,9 +16,7 @@ Requires the node `oracle` driver module
 `database` connection parameters for the ''oracle'' node module.  
 The following options are used on the call to execute a procedure  
 `noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
-`query` use  req.query as input parameters.  
-`body` use req.body as input parameters.  
-`params` use req.params as input parameters.  
+`request` use the object named from express e.g. `request:"query"` will use `req.query` as the input to the procedure
 `inputs` specifiy the input parameters in this object  
 # Examples:
 
@@ -35,7 +33,7 @@ app.use(oj.connect());
 ### Called a Stored Procedure which returns JSON
 
 ```js
-var priceCall={procedure:"pkg_test.getPrice",query:true,output:true} ;
+var priceCall={procedure:"pkg_test.getPrice",request:"body",output:true} ;
 app.get('/price',oj.execute(priceCall));
 
 ```
@@ -51,6 +49,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v0.6.5|2014-07-03|Use and object in the express request as input to the procedure call|
 |v0.5.5|2014-07-03|Reverted to oracle0.3.4|
 |v0.5.1|2014-07-02|Check TNS settings not used|
 |v0.5.0|2014-07-02|Use oracle.connectSync|
