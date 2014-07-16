@@ -16,8 +16,8 @@ Requires the node `oracle` driver module
 `database` connection parameters for the ''oracle'' node module.  
 The following options are used on the call to execute a procedure  
 `noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
-`request` use the object named from express e.g. `request:"query"` will use `req.query` as the input to the procedure
-`inputs` specifiy the input parameters in this object  
+`request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`   
+`inputs` specifiy the input parameters explicitly in this object  
 # Examples:
 
 The examples below assume the `express` module is also being used.
