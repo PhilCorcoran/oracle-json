@@ -49,7 +49,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
-|v0.6.5|2014-07-03|Use and object in the express request as input to the procedure call|
+|v0.6.5|2014-07-03|Use any object in the express request as input to the procedure call|
 |v0.5.5|2014-07-03|Reverted to oracle0.3.4|
 |v0.5.1|2014-07-02|Check TNS settings not used|
 |v0.5.0|2014-07-02|Use oracle.connectSync|
