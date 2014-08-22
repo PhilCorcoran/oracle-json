@@ -49,6 +49,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v0.7.4|2014-08-22|Close on error status|
 |v0.7.3|2014-08-21|Check database status returned|
 |v0.7.2|2014-08-21|Parse JSON result|
 |v0.6.5|2014-07-03|Use any object in the express request as input to the procedure call|
