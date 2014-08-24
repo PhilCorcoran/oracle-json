@@ -49,6 +49,8 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+
+|v0.7.5|2014-08-24|Raise an error when not responding directly|
 |v0.7.4|2014-08-22|Close on error status|
 |v0.7.3|2014-08-21|Check database status returned|
 |v0.7.2|2014-08-21|Parse JSON result|
