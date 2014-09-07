@@ -50,6 +50,7 @@ node test.js
 |Version|Date|Description|
 |:--:|:--:|:--|
 
+|v0.7.8|2014-09-01|Connection maxRetries|  
 |v0.7.7|2014-09-01|Debug logging|  
 |v0.7.6|2014-08-24|Raise an error when not responding directly. Otherwise send json error|
 |v0.7.4|2014-08-22|Close on error status|
