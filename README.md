@@ -49,7 +49,6 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
-
 |v0.7.10|2014-09-08|Monitor reconnect times|  
 |v0.7.9|2014-09-07|Monitor total procedure executions|  
 |v0.7.8|2014-09-01|Connection maxRetries|  
