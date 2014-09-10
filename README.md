@@ -56,6 +56,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v0.8.5|2014-09-10|Check for keep open |  
 |v0.8.4|2014-09-10|Close when test fails |  
 |v0.8.3|2014-09-10|Reconnect when test fails |  
 |v0.8.2|2014-09-09|Test a connection with a simple query |  
