@@ -37,7 +37,14 @@ var priceCall={procedure:"pkg_test.getPrice",request:"body",output:true} ;
 app.get('/price',oj.execute(priceCall));
 
 ```
+### Guarantee your connection is good
+`conntest()` runs the simplest query, `select 1 from dual` and reconnects on error. The overhead for this test seems about 2ms.
 
+```js
+var priceCall={procedure:"pkg_test.getPrice",request:"body",output:true} ;
+app.get('/price',oj.conntest(),oj.execute(priceCall));
+
+```
 
 #Test
 Install the required node modules and run `test.js` in the `test` directory. Used for testing with a mock oracle driver
@@ -49,6 +56,7 @@ node test.js
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v0.8.3|2014-09-10|Reconnect when test fails |  
 |v0.8.2|2014-09-09|Test a connection with a simple query |  
 |v0.8.1|2014-09-08|Close connection |  
 |v0.8.0|2014-09-08|Error status|  
