@@ -13,14 +13,16 @@ Requires the node `oracle` driver module
 ```
 # Options:
 `keepOpen` maintains the connection to oracle between execution calls  
-`database` connection parameters for the ''oracle'' node module.  
-The following options are used on the call to execute a procedure  
-`noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
-`request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`   
-`inputs` specifiy the input parameters explicitly in this object  
+`database` connection parameters for the ''oracle'' node module.   
 `connectionNames` an array of friendly names for your connection  
 `poolSize` number of connections in the pool  
 `statsMax` maximum number of stats to collect before wiping and starting again  
+
+The following options are used on the call to execute a procedure;  
+`noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
+`request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`   
+`inputs` specifiy the input parameters explicitly in this object  
+
 
 # Examples:
 
