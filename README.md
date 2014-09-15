@@ -18,6 +18,10 @@ The following options are used on the call to execute a procedure
 `noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
 `request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`   
 `inputs` specifiy the input parameters explicitly in this object  
+`connectionNames` an array of friendly names for your connection  
+`poolSize` number of connections in the pool  
+`statsMax` maximum number of stats to collect before wiping and starting again  
+
 # Examples:
 
 The examples below assume the `express` module is also being used.
@@ -43,19 +47,15 @@ app.get('/price',oj.execute(priceCall));
 ```js
 var priceCall={procedure:"pkg_test.getPrice",request:"body",output:true} ;
 app.get('/price',oj.conntest(),oj.execute(priceCall));
+//execsafe includes conntest and execute
+app.get('/pricesafe',oj.execsafe(priceCall));
 
-```
-
-#Test
-Install the required node modules and run `test.js` in the `test` directory. Used for testing with a mock oracle driver
-```bash
-npm install
-node test.js
 ```
 
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v1.0.0|2014-09-15|Connection pooling |  
 |v0.8.5|2014-09-10|Check for keep open |  
 |v0.8.4|2014-09-10|Close when test fails |  
 |v0.8.3|2014-09-10|Reconnect when test fails |  
