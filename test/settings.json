@@ -1,9 +1,0 @@
-{ 
-	"database":{
-	"hostname": "any",
-	"user": "db",
-	"password": "passme",
-	"database": "some_oracle"
-	},
-	"port":"3336"
-}
