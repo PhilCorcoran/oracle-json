@@ -1,7 +1,7 @@
 {
   "name": "oracle-json",
   "description": "call oracle stored procedures using json input and output params",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./lib",
   "homepage": "https://github.com/PhilCorcoran/oracle-json",
   "repository": {
