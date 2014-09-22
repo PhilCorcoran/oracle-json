@@ -56,7 +56,8 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 
 ## Release History
 |Version|Date|Description|
-|:--:|:--:|:--|
+|:--:|:--:|:--| 
+|v1.0.1|2014-09-22|Test executions |  
 |v1.0.0|2014-09-15|Connection pooling |  
 |v0.8.5|2014-09-10|Check for keep open |  
 |v0.8.4|2014-09-10|Close when test fails |  
