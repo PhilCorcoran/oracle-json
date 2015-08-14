@@ -22,7 +22,7 @@
     }
   ],
   "dependencies": {
-    "oracle": "0.3.4",
+    "oracle": "0.3.8",
     "debug": "1.0.4"
   },
   "devDependencies": {},
