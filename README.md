@@ -4,7 +4,7 @@ oracle-json
 nodejs module to call oracle stored procedures using json input and output params.
 Automatically sends HTTP 503 response for stored procedure errors or when the database connection is lost.
 Exits when the database connection is lost ( assumes it will be restarted automatically by `upstart` or some such process)
-Requires the node `oracle` driver module
+Requires the node `oracle` driver module.
 
 # Install
 
