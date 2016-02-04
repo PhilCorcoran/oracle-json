@@ -23,7 +23,7 @@ The following options are used on the call to execute a procedure;
 `request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`   
 `inputs` specifiy the input parameters explicitly in this object  
 `debugMaskList` array of object properties that should be masked in debug data e.g.  
-  &nbsp;&nbsp;&nbsp;debugMaskList:["card.cardNumber","card.expDate"]  
+  &nbsp;&nbsp;&nbsp;`debugMaskList:["card.cardNumber","card.expDate"]`  
 `outputType` set to BLOB if database response is BLOB otherwise CLOB of JSON assumed e.g. outputType: "BLOB"  
   &nbsp;&nbsp;&nbsp;Results of procedure stored as `res.locals.data`
 
@@ -93,7 +93,7 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 
 (The MIT License)
 
-Copyright (c) 2014 PC 
+Copyright (c) 2016 PC 
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
