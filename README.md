@@ -4,7 +4,7 @@ oracle-json
 nodejs module to call oracle stored procedures using json input and output params.
 Automatically sends HTTP 503 response for stored procedure errors or when the database connection is lost.
 Exits when the database connection is lost ( assumes it will be restarted automatically by `upstart` or some such process)
-Requires the node `oracle` driver module
+Requires the node `oracle` driver module.
 
 # Install
 
@@ -22,6 +22,10 @@ The following options are used on the call to execute a procedure;
 `noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
 `request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`   
 `inputs` specifiy the input parameters explicitly in this object  
+`debugMaskList` array of object properties that should be masked in debug data e.g.  
+  &nbsp;&nbsp;&nbsp;`debugMaskList:["card.cardNumber","card.expDate"]`  
+`outputType` set to BLOB if database response is BLOB otherwise CLOB of JSON assumed e.g. outputType: "BLOB"  
+  &nbsp;&nbsp;&nbsp;Results of procedure stored as `res.locals.data`
 
 
 # Examples:
@@ -57,6 +61,8 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--| 
+|v1.0.3|2015-08-14|BLOB output type handled and oracle module updated to version 0.3.8|
+|v1.0.2|2015-07-21|Split input parameter |  
 |v1.0.1|2014-09-22|Test executions |  
 |v1.0.0|2014-09-15|Connection pooling |  
 |v0.8.5|2014-09-10|Check for keep open |  
@@ -87,7 +93,7 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 
 (The MIT License)
 
-Copyright (c) 2014 PC 
+Copyright (c) 2016 PC 
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
