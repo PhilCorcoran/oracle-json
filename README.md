@@ -13,11 +13,11 @@ Requires the node `oracle` driver module.
 ```
 # Options:
 `database` connection parameters for the ''oracle'' node module.
-'databasePool' database pool settings which can be:
-    poolTimeout - time (s) that unused connections will be closed. Default 30
-    queueTimeout - time (ms) to wait for a connection before returning an Error. Default 120000
-    poolMin - The smallest number of connections the pool will shrink to - Default 0.
-    poolMax - The greatest number of connections the pool will grow to  - Default 1
+`databasePool` database pool settings which can be:
+    `poolTimeout` - time (s) that unused connections will be closed. Default 30.
+    `queueTimeout` - time (ms) to wait for a connection before returning an Error. Default 120000.
+    `poolMin` - The smallest number of connections the pool will shrink to - Default 0.
+    `poolMax` - The greatest number of connections the pool will grow to  - Default 1.
 
 The following options are used on the call to execute a procedure;  
 `noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
