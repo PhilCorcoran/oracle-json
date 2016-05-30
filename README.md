@@ -12,11 +12,12 @@ Requires the node `oracle` driver module.
   npm install oracle-json
 ```
 # Options:
-`keepOpen` maintains the connection to oracle between execution calls  
-`database` connection parameters for the ''oracle'' node module.   
-`connectionNames` an array of friendly names for your connection  
-`poolSize` number of connections in the pool  
-`statsMax` maximum number of stats to collect before wiping and starting again  
+`database` connection parameters for the ''oracle'' node module.
+`databasePool` database pool settings which can be:
+    `poolTimeout` - time (s) that unused connections will be closed. Default 30.
+    `queueTimeout` - time (ms) to wait for a connection before returning an Error. Default 120000.
+    `poolMin` - The smallest number of connections the pool will shrink to - Default 0.
+    `poolMax` - The greatest number of connections the pool will grow to  - Default 1.
 
 The following options are used on the call to execute a procedure;  
 `noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
