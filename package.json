@@ -22,7 +22,7 @@
     }
   ],
   "dependencies": {
-    "oracledb": "1.8.x",
+    "oracledb": "1.11.0",
     "debug": "2.2.0"
   },
   "devDependencies": {},
