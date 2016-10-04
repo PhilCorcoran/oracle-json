@@ -71,6 +71,10 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--| 
+|v2.1.0|2016-10-04|Added handling of CURSORS and ResultSets from queries|
+|v2.0.2|2016-08-04|support the autoCommit property|
+|v2.0.1|2016-03-01|uses callback to handle errors|
+|v2.0.0|2016-03-01|Switched from oracle to oracledb module|
 |v1.0.4|2016-03-01|Publish BLOB handling missing from 1.0.3|
 |v1.0.3|2015-08-14|BLOB output type handled and oracle module updated to version 0.3.8|
 |v1.0.2|2015-07-21|Split input parameter |  
