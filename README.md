@@ -19,14 +19,23 @@ Requires the node `oracle` driver module.
     `poolMin` - The smallest number of connections the pool will shrink to - Default 0.
     `poolMax` - The greatest number of connections the pool will grow to  - Default 1.
 
-The following options are used on the call to execute a procedure;  
+The following options are used on the call to execute a procedure;
+query
+`procedure` the name of the stored procedure to execute. If not specified a `query``must be specified instead
+`query` the query to execute. The response will be executed as a resultset and returned in res.locals.data.
+        You can reference the 'inputs'`or `request` values by name
+        e.g `select * from table where id = :id` where `inputs` is {'id': 12}
 `noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
 `request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`   
 `inputs` specifiy the input parameters explicitly in this object  
 `debugMaskList` array of object properties that should be masked in debug data e.g.  
   &nbsp;&nbsp;&nbsp;`debugMaskList:["card.cardNumber","card.expDate"]`  
-`outputType` set to BLOB if database response is BLOB otherwise CLOB of JSON assumed e.g. outputType: "BLOB"  
-  &nbsp;&nbsp;&nbsp;Results of procedure stored as `res.locals.data`
+`outputType` BLOB: response will by read without any modification.
+             CURSOR: output will be processed as 1 or more (see ) CURSORS and converted to Arrays of JSON (using field names are object property names)
+             CLOB: or if not specified CLOB will be converted to JSON.
+             Output will be set to res.locals.data
+`outputCount` The number of output Cursors to expect. Default 1.
+`numRows` number of rows to prefetch when processing queries/cursors.
 
 
 # Examples:
@@ -62,6 +71,10 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--| 
+|v2.1.0|2016-10-04|Added handling of CURSORS and ResultSets from queries|
+|v2.0.2|2016-08-04|support the autoCommit property|
+|v2.0.1|2016-03-01|uses callback to handle errors|
+|v2.0.0|2016-03-01|Switched from oracle to oracledb module|
 |v1.0.4|2016-03-01|Publish BLOB handling missing from 1.0.3|
 |v1.0.3|2015-08-14|BLOB output type handled and oracle module updated to version 0.3.8|
 |v1.0.2|2015-07-21|Split input parameter |  
