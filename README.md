@@ -12,30 +12,32 @@ Requires the node `oracle` driver module.
   npm install oracle-json
 ```
 # Options:
-`database` connection parameters for the ''oracle'' node module.
-`databasePool` database pool settings which can be:
-    `poolTimeout` - time (s) that unused connections will be closed. Default 30.
-    `queueTimeout` - time (ms) to wait for a connection before returning an Error. Default 120000.
-    `poolMin` - The smallest number of connections the pool will shrink to - Default 0.
-    `poolMax` - The greatest number of connections the pool will grow to  - Default 1.
+* `database` - connection parameters for the ''oracle'' node module.
+* `databasePool` - database pool settings which can be:
+    * `poolTimeout` - time (s) that unused connections will be closed. Default 30.
+    * `queueTimeout` - time (ms) to wait for a connection before returning an Error. Default 120000.
+    * `poolMin` - The smallest number of connections the pool will shrink to - Default 0.
+    * `poolMax` - The greatest number of connections the pool will grow to  - Default 1.
 
 The following options are used on the call to execute a procedure;
 query
-`procedure` the name of the stored procedure to execute. If not specified a `query``must be specified instead
-`query` the query to execute. The response will be executed as a resultset and returned in res.locals.data.
+* `procedure` the name of the stored procedure to execute. If not specified a `query``must be specified instead
+* `query` the query to execute. The response will be executed as a resultset and returned in res.locals.data.
         You can reference the 'inputs'`or `request` values by name
         e.g `select * from table where id = :id` where `inputs` is {'id': 12}
-`noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`  
-`request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`   
-`inputs` specifiy the input parameters explicitly in this object  
-`debugMaskList` array of object properties that should be masked in debug data e.g.  
+* `noRespond` do not automatically respond to the client but save results of procedure as `res.locals.data`
+* `request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`
+* `inputs` specifiy the input parameters explicitly in this object
+* `debugMaskList` array of object properties that should be masked in debug data e.g.
   &nbsp;&nbsp;&nbsp;`debugMaskList:["card.cardNumber","card.expDate"]`  
-`outputType` BLOB: response will by read without any modification.
-             CURSOR: output will be processed as 1 or more (see ) CURSORS and converted to Arrays of JSON (using field names are object property names)
-             CLOB: or if not specified CLOB will be converted to JSON.
-             Output will be set to res.locals.data
-`outputCount` The number of output Cursors to expect. Default 1.
-`numRows` number of rows to prefetch when processing queries/cursors.
+* `outputType`
+    * `BLOB`: response will by read without any modification.
+    * `CURSOR`: output will be processed as 1 or more (see ) CURSORS and converted to Arrays of JSON (using field names are object property names)
+    * `CLOB` (default): CLOB will be converted to JSON. Output will be set to res.locals.data
+* `outputCount` The number of output Cursors to expect. Default 1.
+* `numRows` number of rows to prefetch when processing queries/cursors.
+* `databaseConnectionErrors` an array of Oracle connection errors codes that will cause the current connection pool to be shutdown, a new one started and the requested query/proc to be reprocessed.
+                           e.g &nbsp;&nbsp;&nbsp; `databaseConnectionErrors`:["ORA-04068","ORA-06508","ORA-04061","ORA-03135"].
 
 
 # Examples:
@@ -71,6 +73,9 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--| 
+|v2.1.3|2017-03-06|Added support to restart the connection pool on certain connection errors|
+|v2.1.2|2017-01-24|Fixed errors being raised because error handlign code was not returning from function|
+|v2.1.1|2016-10-19|Improved Error reporting|
 |v2.1.0|2016-10-04|Added handling of CURSORS and ResultSets from queries|
 |v2.0.2|2016-08-04|support the autoCommit property|
 |v2.0.1|2016-03-01|uses callback to handle errors|
