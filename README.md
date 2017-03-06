@@ -36,6 +36,8 @@ query
              Output will be set to res.locals.data
 `outputCount` The number of output Cursors to expect. Default 1.
 `numRows` number of rows to prefetch when processing queries/cursors.
+`databaseConnectionErrors` an array of Oracle connection errors codes that will cause the current connection pool to be shutdown, a new one started and the requested query/proc to be reprocessed.
+                           example value would be ["ORA-04068","ORA-06508","ORA-04061","ORA-03135"].
 
 
 # Examples:
@@ -71,6 +73,9 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--| 
+|v2.1.3|2017-03-06|Added support to restart the connection pool on certain connection errors|
+|v2.1.2|2017-01-24|Fixed errors being raised because error handlign code was not returning from function|
+|v2.1.1|2016-10-19|Improved Error reporting|
 |v2.1.0|2016-10-04|Added handling of CURSORS and ResultSets from queries|
 |v2.0.2|2016-08-04|support the autoCommit property|
 |v2.0.1|2016-03-01|uses callback to handle errors|
