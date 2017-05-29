@@ -73,6 +73,7 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--| 
+|v2.1.4|2017-05-29|Fixed retry of Pool Termination where hundreds or thousands of failed requests could be made - there was not waiting before retry. |
 |v2.1.3|2017-03-06|Added support to restart the connection pool on certain connection errors|
 |v2.1.2|2017-01-24|Fixed errors being raised because error handlign code was not returning from function|
 |v2.1.1|2016-10-19|Improved Error reporting|
