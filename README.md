@@ -73,6 +73,7 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--| 
+|v2.1.6|2018-02-19|Use console.log when exiting process to ensure log messages are written.
 |v2.1.5|2018-01-29|Fix invalid reference in debug mesage.
 |v2.1.4|2017-05-29|Fixed retry of Pool Termination where hundreds or thousands of failed requests could be made - there was not waiting before retry. |
 |v2.1.3|2017-03-06|Added support to restart the connection pool on certain connection errors|
