@@ -6,6 +6,8 @@ Automatically sends HTTP 503 response for stored procedure errors or when the da
 Exits when the database connection is lost ( assumes it will be restarted automatically by `upstart` or some such process)
 Requires the node `oracle` driver module.
 
+Due to underlying dependency on oracledb modele nodejs compatibility is >= 6
+
 # Install
 
 ```bash
@@ -29,7 +31,7 @@ query
 * `request` use the object named from express as the input to the procedure e.g. `request:"query"` will use `req.query`
 * `inputs` specifiy the input parameters explicitly in this object
 * `debugMaskList` array of object properties that should be masked in debug data e.g.
-  &nbsp;&nbsp;&nbsp;`debugMaskList:["card.cardNumber","card.expDate"]`  
+  &nbsp;&nbsp;&nbsp;`debugMaskList:["card.cardNumber","card.expDate"]`
 * `outputType`
     * `BLOB`: response will by read without any modification.
     * `CURSOR`: output will be processed as 1 or more (see ) CURSORS and converted to Arrays of JSON (using field names are object property names)
@@ -72,7 +74,9 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 
 ## Release History
 |Version|Date|Description|
-|:--:|:--:|:--| 
+|:--:|:--:|:--|
+|v3.0.0|2018-02-19|Upgrade to version 3.0.x of oracledb and debug modules.
+|v2.1.6|2018-02-19|Use console.log when exiting process to ensure log messages are written.
 |v2.1.5|2018-01-29|Fix invalid reference in debug mesage.
 |v2.1.4|2017-05-29|Fixed retry of Pool Termination where hundreds or thousands of failed requests could be made - there was not waiting before retry. |
 |v2.1.3|2017-03-06|Added support to restart the connection pool on certain connection errors|
@@ -84,19 +88,19 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 |v2.0.0|2016-03-01|Switched from oracle to oracledb module|
 |v1.0.4|2016-03-01|Publish BLOB handling missing from 1.0.3|
 |v1.0.3|2015-08-14|BLOB output type handled and oracle module updated to version 0.3.8|
-|v1.0.2|2015-07-21|Split input parameter |  
-|v1.0.1|2014-09-22|Test executions |  
-|v1.0.0|2014-09-15|Connection pooling |  
-|v0.8.5|2014-09-10|Check for keep open |  
-|v0.8.4|2014-09-10|Close when test fails |  
-|v0.8.3|2014-09-10|Reconnect when test fails |  
-|v0.8.2|2014-09-09|Test a connection with a simple query |  
-|v0.8.1|2014-09-08|Close connection |  
-|v0.8.0|2014-09-08|Error status|  
-|v0.7.10|2014-09-08|Monitor reconnect times|  
-|v0.7.9|2014-09-07|Monitor total procedure executions|  
-|v0.7.8|2014-09-01|Connection maxRetries|  
-|v0.7.7|2014-09-01|Debug logging|  
+|v1.0.2|2015-07-21|Split input parameter |
+|v1.0.1|2014-09-22|Test executions |
+|v1.0.0|2014-09-15|Connection pooling |
+|v0.8.5|2014-09-10|Check for keep open |
+|v0.8.4|2014-09-10|Close when test fails |
+|v0.8.3|2014-09-10|Reconnect when test fails |
+|v0.8.2|2014-09-09|Test a connection with a simple query |
+|v0.8.1|2014-09-08|Close connection |
+|v0.8.0|2014-09-08|Error status|
+|v0.7.10|2014-09-08|Monitor reconnect times|
+|v0.7.9|2014-09-07|Monitor total procedure executions|
+|v0.7.8|2014-09-01|Connection maxRetries|
+|v0.7.7|2014-09-01|Debug logging|
 |v0.7.6|2014-08-24|Raise an error when not responding directly. Otherwise send json error|
 |v0.7.4|2014-08-22|Close on error status|
 |v0.7.3|2014-08-21|Check database status returned|
@@ -111,11 +115,11 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 |v0.2.1|2013-12-18|Make one attempt to reconnect to Oracle per request|
 |v0.1.1|2013-12-05|Initial Version|
 
-# License 
+# License
 
 (The MIT License)
 
-Copyright (c) 2016 PC 
+Copyright (c) 2016 PC
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
