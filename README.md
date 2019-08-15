@@ -75,6 +75,8 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v4.0.0|2019-08-12|Upgrade to oracledb v4
+|v3.1.0|2019-07-24|Upgrade module dependencies
 |v3.0.0|2018-02-19|Upgrade to version 3.0.x of oracledb and debug modules.
 |v2.1.6|2018-02-19|Use console.log when exiting process to ensure log messages are written.
 |v2.1.5|2018-01-29|Fix invalid reference in debug mesage.
