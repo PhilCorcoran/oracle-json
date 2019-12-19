@@ -27,7 +27,7 @@
   },
   "devDependencies": {},
   "engines": {
-    "node": ">=8.16"
+    "node": ">=8.16  || >=10.16 || 12."
   },
   "readmeFilename": "README.md"
 }
