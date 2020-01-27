@@ -6,7 +6,7 @@ Automatically sends HTTP 503 response for stored procedure errors or when the da
 Exits when the database connection is lost ( assumes it will be restarted automatically by `upstart` or some such process)
 Requires the node `oracle` driver module.
 
-Due to underlying dependency on oracledb modele nodejs compatibility is >= 6
+Due to underlying dependency on oracledb modele nodejs compatibility is >= 8.16
 
 # Install
 
@@ -75,6 +75,7 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v4.0.1|2020-01-27|Remove password from console logging of settings.
 |v4.0.0|2019-08-12|Upgrade to oracledb v4
 |v3.1.0|2019-07-24|Upgrade module dependencies
 |v3.0.0|2018-02-19|Upgrade to version 3.0.x of oracledb and debug modules.
