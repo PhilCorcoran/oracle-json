@@ -6,8 +6,6 @@ Automatically sends HTTP 503 response for stored procedure errors or when the da
 Exits when the database connection is lost ( assumes it will be restarted automatically by `upstart` or some such process)
 Requires the `oracledb` driver module.
 
-Due to underlying dependency on oracledb modele nodejs compatibility is >=8.16  || >=10.16 || 12.
-
 # Install
 
 ```bash
