@@ -75,6 +75,7 @@ app.get('/pricesafe',oj.execsafe(priceCall));
 ## Release History
 |Version|Date|Description|
 |:--:|:--:|:--|
+|v5.0.0|2021-06-21|Upgrade dependency to oracledb v5. Updated node compatibility to match
 |v4.0.1|2020-01-27|Remove password from console logging of settings.
 |v4.0.0|2019-08-12|Upgrade to oracledb v4
 |v3.1.0|2019-07-24|Upgrade module dependencies
